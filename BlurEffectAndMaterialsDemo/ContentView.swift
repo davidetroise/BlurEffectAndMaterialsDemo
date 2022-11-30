@@ -10,13 +10,26 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
+        ZStack {
+            AsyncImage(url: URL(string: "https://picsum.photos/600")) {
+                image in
+                
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .blur(radius: 6, opaque: true)
+            } placeholder: {
+                Color.gray.opacity(0.2)
+                    .overlay(ProgressView())
+            }
+            .edgesIgnoringSafeArea(.all)
             Text("Hello, world!")
+                .fontWeight(.black)
+                .foregroundColor(.white)
+                .font(.largeTitle)
+                .padding()
+                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
         }
-        .padding()
     }
 }
 
